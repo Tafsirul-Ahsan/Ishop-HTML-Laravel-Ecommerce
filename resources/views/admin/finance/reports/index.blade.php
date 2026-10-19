@@ -1,0 +1,13 @@
+@extends('admin.master')
+@section('title','Reports')
+@section('homeContent')
+@include('finance._design')
+<div class="finance-ui">
+<div class="finance-page-heading"><div><h2>Sales & Profit Reports</h2><p>Manage and review your finance records</p></div></div>
+<form class="card card-soft p-3 mb-4"><div class="row g-2 align-items-end"><div class="col-md-4"><label class="form-label">From</label><input class="form-control" type="date" name="from" value="{{ $from }}"></div><div class="col-md-4"><label class="form-label">To</label><input class="form-control" type="date" name="to" value="{{ $to }}"></div><div class="col-md-4"><button class="btn btn-primary">Generate Report</button><button type="button" onclick="window.print()" class="btn btn-outline-secondary">Print</button></div></div></form>
+<div class="row g-3 mb-4">@foreach([['Sales Total',$sales,'success'],['Payments Received',$received,'primary'],['Cost of Goods Sold',$cogs,'warning'],['Business Expenses',$expenses,'danger'],['Estimated Net Profit',$net,$net>=0?'success':'danger']] as $m)<div class="col-sm-6 col-xl"><div class="card card-soft p-3 h-100"><div class="metric-label">{{ $m[0] }}</div><div class="metric-value text-{{ $m[2] }}">৳{{ number_format((float)$m[1],2) }}</div></div></div>@endforeach</div>
+<div class="alert alert-info">Estimated Net Profit = Sales Total − Cost of Goods Sold − Business Expenses. Payments received are shown separately because unpaid invoices are still included in sales revenue.</div>
+<div class="card card-soft p-3 mb-4"><h5 class="fw-bold">Sales Detail</h5><div class="table-responsive"><table class="table"><thead><tr><th>Invoice</th><th>Date</th><th>Customer</th><th>Total</th><th>Paid</th><th>Due</th></tr></thead><tbody>@forelse($salesRows as $s)<tr><td>{{ $s->invoice_no }}</td><td>{{ $s->sale_date->format('d M Y') }}</td><td>{{ $s->customer->name ?? 'Walk-in' }}</td><td>৳{{ number_format($s->total,2) }}</td><td>৳{{ number_format($s->paid_amount,2) }}</td><td>৳{{ number_format($s->due_amount,2) }}</td></tr>@empty<tr><td colspan="6">No sales in selected period.</td></tr>@endforelse</tbody></table></div></div>
+<div class="card card-soft p-3"><h5 class="fw-bold">Expense Detail</h5><div class="table-responsive"><table class="table"><thead><tr><th>Date</th><th>Title</th><th>Category</th><th>Amount</th></tr></thead><tbody>@forelse($expenseRows as $e)<tr><td>{{ $e->expense_date->format('d M Y') }}</td><td>{{ $e->title }}</td><td>{{ $e->category->name ?? '-' }}</td><td>৳{{ number_format($e->amount,2) }}</td></tr>@empty<tr><td colspan="4">No expenses in selected period.</td></tr>@endforelse</tbody></table></div></div>
+</div>
+@endsection
