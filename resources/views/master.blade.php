@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <link as="font" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
     <title>@yield('title', 'iShop — Online Shopping')</title>
 
@@ -217,7 +219,131 @@
 
     {{-- ================= FOOTER ================= --}}
 
-            <div class="footer-logo">
+           
+
+<section class="category-directory">
+    <div class="directory-inner">
+        <div class="directory-grid">
+
+            <section class="directory-group">
+                <h2 class="directory-title">Toys, Kids &amp; Babies</h2>
+                <nav class="directory-links">
+                    <a href="#">Bath &amp; Baby Care</a>
+                    <a href="#">Maternity Care</a>
+                    <a href="#">Kid's Furniture</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">
+                    <a href="#" style="color: inherit;">Men's Shoes</a>
+                </h2>
+                <nav class="directory-links">
+                    <a href="#">Formal Shoes</a>
+                    <a href="#">Sandals &amp; Flip-Flops</a>
+                    <a href="#">Sneakers</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Home Appliances</h2>
+                <nav class="directory-links">
+                    <a href="#">Housekeeping</a>
+                    <a href="#">TV Accessories</a>
+                    <a href="#">Small Kitchen Appliances</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Men's Wear</h2>
+                <nav class="directory-links">
+                    <a href="#">Pants</a>
+                    <a href="#">Crossbody &amp; Shoulder Bags</a>
+                    <a href="#">Shirts</a>
+                    <a href="#">Jackets &amp; Coats</a>
+                    <a href="#">Men's Wallet</a>
+                    <a href="#">Backpacks</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Men's Bags</h2>
+                <nav class="directory-links">
+                    <a href="#">Totes</a>
+                    <a href="#">Briefcases</a>
+                    <a href="#">Suit Carriers</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Women Apparel</h2>
+                <nav class="directory-links">
+                    <a href="#">Tops</a>
+                    <a href="#">Dresses</a>
+                    <a href="#">Socks &amp; Tights</a>
+                    <a href="#">Pants &amp; Leggings</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Beauty &amp; Personal Care</h2>
+                <nav class="directory-links">
+                    <a href="#">Women's Hair Care</a>
+                    <a href="#">Feminine Care</a>
+                    <a href="#">Skincare</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Home &amp; Living</h2>
+                <nav class="directory-links">
+                    <a href="#">Home Decor</a>
+                    <a href="#">Tools, DIY &amp; Outdoors</a>
+                    <a href="#">Kitchen &amp; Dining</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Food &amp; Beverages</h2>
+                <nav class="directory-links">
+                    <a href="#">Snacks &amp; Sweets</a>
+                    <a href="#">Meat &amp; Seafood</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Travel &amp; Luggage</h2>
+                <nav class="directory-links">
+                    <a href="#">Luggage</a>
+                    <a href="#">Travel Bags &amp; Backpacks</a>
+                    <a href="#">Travel Accessories</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Jewellery &amp; Accessories</h2>
+                <nav class="directory-links">
+                    <a href="#">Hats &amp; Caps</a>
+                    <a href="#">Key Chains</a>
+                    <a href="#">Eyewear</a>
+                </nav>
+            </section>
+
+            <section class="directory-group">
+                <h2 class="directory-title">Women's Bags</h2>
+                <nav class="directory-links">
+                    <a href="#">Sling Bags</a>
+                    <a href="#">Clutches &amp; Mini Bags</a>
+                    <a href="#">Handbags</a>
+                </nav>
+            </section>
+
+        </div>
+    </div>
+</section>
+
+
+ <div class="footer-logo" style="height: 100% !important; width: 100% !important;">
                 <a href="{{ url('/') }}">
                     <img src="{{ asset('images/logo.svg') }}"
                          alt="iShop">
@@ -287,6 +413,7 @@
 </script>
 
     <script src="{{ asset('asset/js/ishop.js') }}"></script>
+    <script src="{{ asset('asset/js/ishopjs.js') }}"></script>
 
     @stack('scripts')
 

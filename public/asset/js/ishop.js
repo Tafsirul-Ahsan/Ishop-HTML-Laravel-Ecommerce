@@ -8,3 +8,4 @@
  $('#searchForm')?.addEventListener('submit',e=>{e.preventDefault();const q=$('#searchInput').value.trim().toLowerCase();let found=0;document.querySelectorAll('.product-tile').forEach(card=>{const ok=!q||card.innerText.toLowerCase().includes(q);card.hidden=!ok;if(ok)found++});document.querySelector('#featured')?.scrollIntoView({behavior:'smooth'});if(q&&!found)alert('No matching demo products. Connect the live product API to search the complete catalogue.')});
  $('#year').textContent=new Date().getFullYear();
 })();
+
