@@ -128,12 +128,26 @@
     {{-- ================= FLASH SALE ================= --}}
    
 <section class="area home-section flash-sale-section" id="flash-sale">
-    <div class="flex sided title">
+    
+<div class="flex sided title">
+    <div class="flash-heading">
         <h4>Flash Sale</h4>
-        <a class="link" href="{{ url('/flash-sale') }}">
-            Show all <i class="bi bi-arrow-right"></i>
-        </a>
+
+        <div class="flash-timer">
+            <span class="timer-label">Ends in</span>
+            <span class="timer-box" id="saleHours">23</span>
+            <span class="timer-colon">:</span>
+            <span class="timer-box" id="saleMinutes">59</span>
+            <span class="timer-colon">:</span>
+            <span class="timer-box" id="saleSeconds">59</span>
+        </div>
     </div>
+
+    <a class="link" href="{{ url('/flash-sale') }}">
+        Show all <i class="bi bi-arrow-right"></i>
+    </a>
+</div>
+
 
     <div class="flash-sale-wrapper">
         <button class="sale-nav sale-prev" type="button"
@@ -585,7 +599,11 @@
 
 
 {{-- ================= Banner ================= --}}
-<a href="/summer-fashion/products?banner=5" class="block banner-wrapper home-section mb-0 br-primary flow-hidden"><img src="https://cdn.ishop.cholobangla.com/uploads/banner-5.webp" alt="Summer fashion" height="100% !important;" width="100% !important;"><!----></a>
+<a href="/summer-fashion/products?banner=5" class="block banner-wrapper home-section mt-5 mb-0 br-primary flow-hidden"><img
+    src="https://cdn.ishop.cholobangla.com/uploads/banner-5.webp"
+    alt="Summer fashion"
+    width="100%"
+><!----></a>
 
 
 {{-- ================= Top Products ================= --}}
@@ -616,7 +634,7 @@
                   class="compare-btn"
                   title="Compare"
                 >
-                  <i class="icon reload-icon"></i>
+                  <i class="bi bi-arrow-repeat"></i>
                 </button>
 
                 <img
@@ -681,7 +699,7 @@
                   class="compare-btn"
                   title="Compare"
                 >
-                  <i class="icon reload-icon"></i>
+                  <i class="bi bi-arrow-repeat"></i>
                 </button>
 
                 <img
@@ -1293,23 +1311,6 @@
     
   </div>
 </section>
-
-
-
-    {{-- ================= DISCOVER PRODUCTS ================= --}}
-    <section class="area home-section discover">
-
-        <div class="title">
-            <h4>Discover Products</h4>
-        </div>
-
-        <p>Explore more products from the iShop catalogue.</p>
-
-        <a href="{{ url('/products') }}" class="btn btn-primary">
-            Browse products
-        </a>
-
-    </section>
 
 </main>
 

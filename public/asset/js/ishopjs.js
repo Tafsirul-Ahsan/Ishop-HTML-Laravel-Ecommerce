@@ -123,3 +123,26 @@ document.querySelectorAll('.selling-action').forEach(function(button){
     }, 900);
   });
 });
+
+
+document.querySelectorAll('.product-section .products-wrapper').forEach(function (wrapper) {
+    const track = wrapper.querySelector('.products-track');
+    const prev = wrapper.querySelector('.product-prev');
+    const next = wrapper.querySelector('.product-next');
+
+    if (!track || !prev || !next) return;
+
+    prev.addEventListener('click', function () {
+        track.scrollBy({
+            left: -track.clientWidth,
+            behavior: 'smooth'
+        });
+    });
+
+    next.addEventListener('click', function () {
+        track.scrollBy({
+            left: track.clientWidth,
+            behavior: 'smooth'
+        });
+    });
+});
