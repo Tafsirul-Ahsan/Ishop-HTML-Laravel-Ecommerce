@@ -181,7 +181,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.finance.products.form', compact('product'));
+        return view('admin.finance.products.edit', compact('product'));
     }
 
     /**

@@ -34,6 +34,7 @@ Route::post('/search',[WelcomeController::class, 'search']);
 
 //admin
 
+Route::get('/admin/dashboard', [AdminController::class, 'index']);
 Route::get('/admin/login',[AdminLoginController::class, 'showLoginForm']);
 Route::post('/admin/login',[AdminLoginController::class, 'login']);
 
