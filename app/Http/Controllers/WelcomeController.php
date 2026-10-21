@@ -42,15 +42,32 @@ public function cart()
 
     public function addcart(Request $request)
 {
- $product=Product::where('id',$request->pid)->first();
+    $request->validate([
+        'pid' => 'required|exists:products,id',
+        'qty' => 'required|integer|min:1',
+    ]);
 
-$subtotal=$request->quantity*$product->price;
+    $product = Product::findOrFail($request->pid);
 
- $cartItem = Cart::add($product->id, $product->name, $product->price, $request->quantity, array('subtotal'=>$subtotal,'thum_img'=>$product->thum_img,'code'=>$product->code));
+    $quantity = (int) $request->qty;
 
- return redirect('/cart');
-    
+    $subtotal = $quantity * (float) $product->selling_price;
+
+    Cart::add(
+        $product->id,
+        $product->name,
+        (float) $product->selling_price,
+        $quantity,
+        [
+            'subtotal' => $subtotal,
+            'thum_img' => $product->thum_img,
+            'code'     => $product->sku,
+        ]
+    );
+
+    return redirect('/cart')->with('success', 'Product added to cart successfully!');
 }
+
 public function removecart($id)
 {
     Cart::remove($id);

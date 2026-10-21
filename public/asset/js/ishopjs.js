@@ -146,3 +146,30 @@ document.querySelectorAll('.product-section .products-wrapper').forEach(function
         });
     });
 });
+
+ let quantity = 1;
+
+        function changeQuantity(value) {
+            quantity = Math.max(1, quantity + value);
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        function changeImage(element) {
+            document.getElementById('mainImage').src = element.src;
+            document.querySelectorAll('.thumbnail').forEach(img => {
+                img.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function addToCart() {
+            alert(quantity + ' item(s) selected. Connect your cart system to complete this action.');
+        }
+
+        function buyNow() {
+            alert('Connect your checkout page to complete your purchase.');
+        }
+
+        function addToWishlist() {
+            alert('Connect your wishlist system to save this product.');
+        }

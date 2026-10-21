@@ -1,150 +1,239 @@
 @extends('master')
-@section('homeContent')
-<div class="products-section">
-   <div class="categoryheader">
-      <div class="row">
-         <div class="col-md-12">
-            <ul class="categoryblog-lists">
-               <li><a href="">Home</a>/</li>
-               <li><a href="">Service</a>/</li>
-            </ul>
-         </div>
-      </div>
-   </div>
-   <div class="container" style="padding: 50px 0;">
-      <div class="row">
-        
-         <div class="col-md-6">
-            <div class="xzoom-container">
-               <img src="{{asset('uploads/'.$product->thum_img)}}" class="xzoom4" id="xzoom-fancy"  style="width: 540px; ">
-               
-            </div>
-           </div>
-         <div class="col-md-6">
-            <div class="products-process">
-               <h3 class="singleProducttitle">{{$product->name}}</h3>
-               <div class="starView">
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span class=" ml-2">
-                  (0)
-                  </span>
-                  Review
-               </div>
-               <h5 class="singlPrice">
-                 Price: ¥ {{$product->price}}
-               </h5>
-               <p class="single-excerpt">
-                  Category:   {{$product->type}}
-                  </p>
-               <p class="single-excerpt">
-                Weight:  {{$product->adinfo}}
-               </p>
-               <p class="single-excerpt">
-                  Description:  {{$product->description}}
-                 </p>
-               <p class="single-excerpt">
-               MoreInfo:   {{$product->short_des}}
-               </p>
-              
-               <form action="{{url('/cart/addtocart')}}" method="post">
-                @csrf
-                <fieldset>
-                  <div class="row">
-                     <div class="column">
-                       <div class="">
-                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="  fa fa-minus" aria-hidden="true"></i></span>
-                                      <input type="number" class="qty-text" id="qty" step="1" min="1" max="50" name="quantity" value="1">
-                                     <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                       
-                            
-                       </div>
-                     </div>
-                   
-                     <div class="column">
-                       <div class="ml-3">
-                         <input type="hidden" name="pid" value="{{$product->id}}">
-                                     <button type="submit" name="addtocart" class="btn btn-primary">ADD TO CART</button>
-                            
-                       </div>
-                     </div> </fieldset>
-              </form>
-               <hr>
-               <p class="stockAvailable">
-                  Available In Stock: 91
-               </p>
-               <div class="singleSocial">
-                  <ul>
-                     <li>
-                        <a href="#" style="background: #3a579a;"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                     </li>
-                     <li>
-                        <a href="#" style="background: #0da8e3;"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                     </li>
-                     <li>
-                        <a href="#" style="background-image: linear-gradient(#4560ca, #ff5745,#ffd057);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                     </li>
-                     <li>
-                        <a href="#" style="background: #1c9a11;"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="description-parts">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-         <li class="nav-item">
-            <p class="nav-link Productdescription active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" style="cursor: pointer; margin: 0;">
-               Additional Information
-            </p>
-         </li>
-         <li class="nav-item">
-            <p class="nav-link Productdescription" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false" style="cursor: pointer; margin: 0;">
-               Reviews
-            </p>
-         </li>
-      </ul>
-      <div class="tab-content" id="myTabContent" style="overflow: auto;">
-         <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="productnoticelist">
-               <p>
-                  {{$product->description}}
-               </p>
-            </div>
-         </div>
-         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-            <div class="productnoticelist">
-               <p>
-                  {{$product->short_des}}
-               </p>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="singleRelated" style="background-color: #e1f5fe;">
-      <h3 style="color:rgb(43, 163, 89);">Related Products</h3>
-      <div class="row">
-        @foreach ($products as $product)
-        <div class="column">
-           
-               
-           
-           <div class="card">
-              <img src="{{asset('uploads/'.$product->thum_img)}}" alt="Denim Jeans" style="height:200px; !important">
-              <p class="word">{{$product->name}}</p>
-              <p class="price">¥{{$product->price}}</p>
-              <p><a href="{{url('product-details-'.$product->id)}}"><button class="button-5">Add to Cart</button></a></p>
-            </div>
-            
-        </div>
-        @endforeach
-     </div>
-   </div>
+
+@section('content')
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-area">
+    <a href="{{ url('/') }}">Home</a>
+    <span class="mx-2">&gt;</span>
+    <a href="#">{{ $product->category ?? 'Products' }}</a>
+    <span class="mx-2">&gt;</span>
+    <span class="text-secondary">{{ $product->name }}</span>
 </div>
 
+<div class="container-fluid product-container">
+    <div class="row g-4">
+
+        <!-- Product Images -->
+        <div class="col-12 col-md-4">
+            @php
+                $mainImage = $product->thum_img
+                    ? asset($product->thum_img)
+                    : 'https://placehold.co/500x500?text=Product';
+            @endphp
+
+            <div class="text-center">
+                <img
+                    id="mainImage"
+                    class="main-product-image"
+                    src="{{ $mainImage }}"
+                    alt="{{ $product->name }}">
+            </div>
+
+            <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                <img
+                    class="thumbnail active"
+                    src="{{ $mainImage }}"
+                    onclick="changeImage(this)"
+                    alt="{{ $product->name }}">
+
+                @foreach($moreimg as $img)
+                    <img
+                        class="thumbnail"
+                        src="{{ asset($img->image) }}"
+                        onclick="changeImage(this)"
+                        alt="{{ $product->name }} gallery image">
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Product Information -->
+        <div class="col-12 col-md-5">
+            <h1 class="product-title">{{ $product->name }}</h1>
+
+            <div class="d-flex align-items-center gap-2">
+                <span class="rating">★★★★☆</span>
+                <span class="rating-text">Reviews</span>
+            </div>
+
+            <div class="product-divider"></div>
+
+            <div class="sale-banner">
+                <span>SHOCKING SALE</span>
+                <span>Special Offer</span>
+            </div>
+
+            <div class="stock-status">
+                @if(($product->stock ?? 0) > 0)
+                    In Stock
+                @else
+                    Out of Stock
+                @endif
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">SKU</div>
+                <div>{{ $product->sku ?? 'N/A' }}</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Category</div>
+                <div>{{ $product->category ?? 'N/A' }}</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Description</div>
+                <div>
+                    {!! nl2br(e($product->short_des ?? $product->description ?? '')) !!}
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Product Details</div>
+                <div>
+                    {!! nl2br(e($product->description ?? '')) !!}
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Section -->
+        <div class="col-12 col-md-3 purchase-section">
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span class="price">
+                    ৳{{ number_format((float) $product->selling_price, 2) }}
+                </span>
+            </div>
+
+            <div class="shipping-fee">
+                Shipping fee calculated at checkout
+            </div>
+<form action="{{url('/cart/addtocart')}}" method="post">
+              @csrf
+           <form action="{{ url('/cart/addtocart') }}" method="POST" id="addToCartForm">
+    @csrf
+
+    <div class="quantity-box">
+        <span class="small">Quantity</span>
+
+        <div class="quantity-control">
+            <button type="button" onclick="changeQuantity(-1)">-</button>
+
+            <input
+                type="number"
+                id="quantity"
+                name="qty"
+                value="1"
+                min="1"
+                max="{{ min(50, (int) ($product->stock ?? 0)) }}"
+                readonly
+                style="width: 50px; text-align: center; border: none; background: transparent;"
+            >
+
+            <button type="button" onclick="changeQuantity(1)">+</button>
+        </div>
+    </div>
+
+    <input type="hidden" name="pid" value="{{ $product->id }}">
+
+    <button
+        type="submit"
+        class="btn-cart"
+        @if(($product->stock ?? 0) < 1) disabled @endif>
+        Add to cart
+    </button>
+
+
+<input type="hidden" name="pid" value="{{ $product->id }}">
+         
+</form>
+            <button
+                type="button"
+                class="btn-buy"
+                onclick="buyNow()"
+                @if(($product->stock ?? 0) < 1) disabled @endif>
+                Buy now
+            </button>
+
+            <div class="secure">
+                <i class="bi bi-lock me-1"></i>
+                Secure transaction
+            </div>
+
+            <div class="delivery">
+                Delivery information available at checkout.
+            </div>
+
+            <button
+                type="button"
+                class="btn-wishlist"
+                onclick="addToWishlist()">
+                <i class="bi bi-heart me-2"></i>
+                Add to wishlist
+            </button>
+
+            <div class="share-links small text-secondary">
+                Share:
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                   target="_blank" rel="noopener">
+                    <i class="bi bi-facebook text-primary"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const quantityInput = document.getElementById('quantity');
+
+    if (!quantityInput) return;
+
+    const maxStock = Math.min(
+        50,
+        {{ (int) ($product->stock ?? 0) }}
+    );
+
+    window.changeQuantity = function (change) {
+        if (maxStock < 1) {
+            quantityInput.value = 1;
+            return;
+        }
+
+        let quantity = parseInt(quantityInput.value, 10) || 1;
+
+        quantity += change;
+        quantity = Math.max(1, Math.min(maxStock, quantity));
+
+        quantityInput.value = quantity;
+    };
+
+    window.changeImage = function (element) {
+        document.getElementById('mainImage').src = element.src;
+
+        document.querySelectorAll('.thumbnail').forEach(function (img) {
+            img.classList.remove('active');
+        });
+
+        element.classList.add('active');
+    };
+
+    window.buyNow = function () {
+        if (maxStock < 1) {
+            alert('Product is out of stock!');
+            return;
+        }
+
+        document.getElementById('addToCartForm').requestSubmit();
+    };
+
+    window.addToWishlist = function () {
+        alert('Wishlist route connect korte hobe.');
+    };
+});
+</script>
+@endpush
 @endsection

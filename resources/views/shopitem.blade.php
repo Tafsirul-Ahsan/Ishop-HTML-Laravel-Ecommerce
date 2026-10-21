@@ -1,5 +1,5 @@
 @extends('master')
-@section('homeContent')
+@section('content')
 
 <div class="featured-products latest" style="background-color: #e1f5fe;">
 	<h2 style="color:rgb(43, 163, 89);">All Products</h2>

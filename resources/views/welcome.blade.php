@@ -127,29 +127,30 @@
 
     {{-- ================= FLASH SALE ================= --}}
    
-<section class="area home-section flash-sale-section" id="flash-sale">
-    
-<div class="flex sided title">
-    <div class="flash-heading">
-        <h4>Flash Sale</h4>
 
-        <div class="flash-timer">
-            <span class="timer-label">Ends in</span>
-            <span class="timer-box" id="saleHours">23</span>
-            <span class="timer-colon">:</span>
-            <span class="timer-box" id="saleMinutes">59</span>
-            <span class="timer-colon">:</span>
-            <span class="timer-box" id="saleSeconds">59</span>
+<section class="area home-section flash-sale-section" id="flash-sale">
+
+    <div class="flex sided title">
+        <div class="flash-heading">
+            <h4>Flash Sale</h4>
+
+            <div class="flash-timer">
+                <span class="timer-label">Ends in</span>
+                <span class="timer-box" id="saleHours">23</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="saleMinutes">59</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="saleSeconds">59</span>
+            </div>
         </div>
+
+        <a class="link" href="{{ url('/flash-sale') }}">
+            Show all <i class="bi bi-arrow-right"></i>
+        </a>
     </div>
 
-    <a class="link" href="{{ url('/flash-sale') }}">
-        Show all <i class="bi bi-arrow-right"></i>
-    </a>
-</div>
-
-
     <div class="flash-sale-wrapper">
+
         <button class="sale-nav sale-prev" type="button"
                 aria-label="Previous products">
             <i class="bi bi-chevron-left"></i>
@@ -157,114 +158,51 @@
 
         <div class="sale-products" id="flashSaleProducts">
 
-            
-@php
-    $products = [
-        [
-            'price' => 76,
-            'old' => 130,
-            'discount' => 42,
-            'tag' => 'New',
-            'image' => asset('images/pro-1.webp'),
-        ],
-        [
-            'price' => 77,
-            'old' => 100,
-            'discount' => 23,
-            'tag' => '',
-            'image' => asset('images/pro-2.webp'),
-        ],
-        [
-            'price' => 78,
-            'old' => 100,
-            'discount' => 22,
-            'tag' => '',
-            'image' => asset('images/pro-3.webp'),
-        ],
-         [
-            'price' => 76,
-            'old' => 130,
-            'discount' => 42,
-            'tag' => 'New',
-            'image' => asset('images/pro-1.webp'),
-        ],
-        [
-            'price' => 77,
-            'old' => 100,
-            'discount' => 23,
-            'tag' => '',
-            'image' => asset('images/pro-2.webp'),
-        ],
-        [
-            'price' => 78,
-            'old' => 100,
-            'discount' => 22,
-            'tag' => '',
-            'image' => asset('images/pro-3.webp'),
-        ],
-         [
-            'price' => 76,
-            'old' => 130,
-            'discount' => 42,
-            'tag' => 'New',
-            'image' => asset('images/pro-1.webp'),
-        ],
-        [
-            'price' => 77,
-            'old' => 100,
-            'discount' => 23,
-            'tag' => '',
-            'image' => asset('images/pro-2.webp'),
-        ],
-        [
-            'price' => 78,
-            'old' => 100,
-            'discount' => 22,
-            'tag' => '',
-            'image' => asset('images/pro-3.webp'),
-        ],
-
-         [
-            'price' => 78,
-            'old' => 100,
-            'discount' => 22,
-            'tag' => '',
-            'image' => asset('images/pro-3.webp'),
-        ],
-    ];
-@endphp
-
-
             @foreach ($products as $product)
                 <article class="sale-product">
-                    <a href="#" class="sale-product-link">
+
+                    <a href="{{ route('product.details', ['id' => $product->id]) }}"
+                       class="sale-product-link">
+
                         <div class="sale-product-image">
-                            @if ($product['tag'])
+
+                            @if (!empty($product->tag))
                                 <span class="sale-badge">
-                                    {{ $product['tag'] }}
+                                    {{ $product->tag }}
                                 </span>
                             @endif
 
-                            <img src="{{ $product['image'] }}"
-                                 alt="Sale product"
-                                 loading="lazy">
+                            @if(isset($product) && $product->thum_img)
+    <img
+        src="{{ asset('images/pro-1.webp') }}"
+        width="150"
+        alt="Product image"
+    >
+@endif
+
                         </div>
+
+                        
+<div class="sale-product-info">
+    <h4 class="price-wrapper">
+        <span class="price">
+            ${{ number_format($product->selling_price, 2) }}
+        </span>
+
+        <span class="strike-through">
+            ${{ number_format($product->old, 2) }}
+        </span>
+    </h4>
+
+    <h5 class="color-primary">
+        <span class="discount">
+            {{ $product->discount }}% OFF
+        </span>
+    </h5>
+</div>
+
+
                     </a>
-
-                    <div class="sale-product-info">
-                        <div class="sale-prices">
-                            <span class="sale-price">
-                                ${{ $product['price'] }}
-                            </span>
-                            <del class="sale-old-price">
-                                ${{ $product['old'] }}
-                            </del>
-                        </div>
-
-                        <span class="sale-discount">
-                            {{ $product['discount'] }}% off
-                        </span>
-                    </div>
                 </article>
             @endforeach
 
@@ -274,9 +212,9 @@
                 aria-label="Next products">
             <i class="bi bi-chevron-right"></i>
         </button>
+
     </div>
 </section>
-
 
     {{-- ================= PROMOTIONAL BANNERS ================= --}}
     <section class="product-banner">

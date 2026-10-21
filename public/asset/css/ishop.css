@@ -9,13 +9,14 @@
   --discover-muted: #64748b;
   --discover-border: #e8edf3;
   --discover-sale: #dc2626;
-
+border-radius: 10px;
   padding: 25px 0 35px;
   color: var(--discover-text);
 }
 
 .daily-discover .area {
   width: 100%;
+  border-radius: 10px;
 }
 
 .daily-discover .area > .title {

@@ -23,7 +23,8 @@ use App\Http\Controllers\LangController;
 
 
 Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/product-details-{id}',[WelcomeController::class, 'details']);
+Route::get('/product-details-{id}', [WelcomeController::class, 'details'])
+    ->name('product.details');
 Route::get('/about',[WelcomeController::class, 'about']);
 
 // Auth::routes();
@@ -34,7 +35,7 @@ Route::post('/search',[WelcomeController::class, 'search']);
 
 //admin
 
-Route::get('/admin/dashboard', [AdminController::class, 'index']);
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/login',[AdminLoginController::class, 'showLoginForm']);
 Route::post('/admin/login',[AdminLoginController::class, 'login']);
 
