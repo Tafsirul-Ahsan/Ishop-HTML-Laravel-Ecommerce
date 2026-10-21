@@ -110,42 +110,36 @@
             </div>
 <form action="{{url('/cart/addtocart')}}" method="post">
               @csrf
-           <form action="{{ url('/cart/addtocart') }}" method="POST" id="addToCartForm">
-    @csrf
+           <div class="quantity-box">
+    <span class="small">Quantity</span>
 
-    <div class="quantity-box">
-        <span class="small">Quantity</span>
+    <div class="quantity-control">
+        <button type="button" onclick="changeQuantity(-1)">-</button>
 
-        <div class="quantity-control">
-            <button type="button" onclick="changeQuantity(-1)">-</button>
+        <input
+            type="number"
+            id="quantity"
+            name="qty"
+            value="1"
+            min="1"
+            max="{{ min(50, (int) ($product->stock ?? 0)) }}"
+            readonly
+            style="width: 50px; text-align: center; border: none; background: transparent;"
+        >
 
-            <input
-                type="number"
-                id="quantity"
-                name="qty"
-                value="1"
-                min="1"
-                max="{{ min(50, (int) ($product->stock ?? 0)) }}"
-                readonly
-                style="width: 50px; text-align: center; border: none; background: transparent;"
-            >
-
-            <button type="button" onclick="changeQuantity(1)">+</button>
-        </div>
+        <button type="button" onclick="changeQuantity(1)">+</button>
     </div>
-
-    <input type="hidden" name="pid" value="{{ $product->id }}">
-
-    <button
-        type="submit"
-        class="btn-cart"
-        @if(($product->stock ?? 0) < 1) disabled @endif>
-        Add to cart
-    </button>
-
+</div>
 
 <input type="hidden" name="pid" value="{{ $product->id }}">
-         
+<input type="hidden" name="pid" value="{{$product->id}}">
+            <button
+                type="submit"
+                class="btn-cart"
+                onclick="addToCart()"
+                @if(($product->stock ?? 0) < 1) disabled @endif>
+                Add to cart
+            </button>
 </form>
             <button
                 type="button"
@@ -185,55 +179,5 @@
 </div>
 
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const quantityInput = document.getElementById('quantity');
 
-    if (!quantityInput) return;
-
-    const maxStock = Math.min(
-        50,
-        {{ (int) ($product->stock ?? 0) }}
-    );
-
-    window.changeQuantity = function (change) {
-        if (maxStock < 1) {
-            quantityInput.value = 1;
-            return;
-        }
-
-        let quantity = parseInt(quantityInput.value, 10) || 1;
-
-        quantity += change;
-        quantity = Math.max(1, Math.min(maxStock, quantity));
-
-        quantityInput.value = quantity;
-    };
-
-    window.changeImage = function (element) {
-        document.getElementById('mainImage').src = element.src;
-
-        document.querySelectorAll('.thumbnail').forEach(function (img) {
-            img.classList.remove('active');
-        });
-
-        element.classList.add('active');
-    };
-
-    window.buyNow = function () {
-        if (maxStock < 1) {
-            alert('Product is out of stock!');
-            return;
-        }
-
-        document.getElementById('addToCartForm').requestSubmit();
-    };
-
-    window.addToWishlist = function () {
-        alert('Wishlist route connect korte hobe.');
-    };
-});
-</script>
-@endpush
 @endsection
