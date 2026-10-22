@@ -17,7 +17,7 @@ class WelcomeController extends Controller
     
     public function index(){
           
-          $products=Product::orderby('id','desc')->get();
+          $products=Product::orderby('id','asc')->get();
           $items=Product::orderby('id','asc')->get();
     return view('welcome',compact('products','items'));
     }

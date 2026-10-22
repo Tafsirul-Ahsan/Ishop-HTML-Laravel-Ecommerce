@@ -17,10 +17,12 @@
         <!-- Product Images -->
         <div class="col-12 col-md-4">
             @php
-                $mainImage = $product->thum_img
-                    ? asset($product->thum_img)
-                    : 'https://placehold.co/500x500?text=Product';
-            @endphp
+    $mainImage = !empty($product->thum_img)
+        ? asset('images/' . $product->thum_img)
+        : 'https://placehold.co/500x500?text=Product';
+@endphp
+
+
 
             <div class="text-center">
                 <img

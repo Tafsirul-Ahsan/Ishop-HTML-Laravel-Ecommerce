@@ -145,7 +145,11 @@
             <a href="{{url('/product-details-'.$product->id)}}">
           <div class="product-visual">
             <span class="tag">{{$product->type}}</span>
-            <img src="{{asset('images/pro-2.webp')}}" alt="Packaged almonds">
+            <img
+    src="{{ asset('images/' . basename($product->thum_img ?? '')) }}"
+    alt="{{ $product->name }}"
+    onerror="this.onerror=null; this.src='https://placehold.co/500x500?text=Product';"
+>
           </div>
           <div class="product-meta"><div class="price-line"><span class="price">${{$product->selling_price}}</span><span class="old-price">$130</span></div><span class="discount">42% off</span></div></a>
         </article>
@@ -189,7 +193,11 @@
          @foreach($products as $product)
       <article class="product-card mt-0">
         <a href="{{url('/product-details-'.$product->id)}}">
-        <div class=""><img src="images/pro-1.webp" alt="Waffle knit blouse"></div>
+        <div class=""><img
+    src="{{ asset('images/' . basename($product->thum_img ?? '')) }}"
+    alt="{{ $product->name }}"
+    onerror="this.onerror=null; this.src='https://placehold.co/500x500?text=Product';"
+></div>
         <div class="product-title">{{$product->name}}</div>
         <div class="product-rating"><span class="product-stars">★★★★★</span><span>2 Reviews</span></div>
         <div class="product-prices"><del class="product-old-price">${{$product->old_price}}</del><span class="product-price">${{$product->selling_price}}</span><span class="product-discount">-{{$product->discount}}%</span></div></a>
@@ -212,7 +220,11 @@
         @foreach($products as $product)
       <article class="product-card">
         <a href="{{url('/product-details-'.$product->id)}}">
-        <div class=""><img src="images/pro-1.webp" alt="Smart watch"></div>
+        <div class=""><img
+    src="{{ asset('images/' . basename($product->thum_img ?? '')) }}"
+    alt="{{ $product->name }}"
+    onerror="this.onerror=null; this.src='https://placehold.co/500x500?text=Product';"
+></div>
         <div class="product-title">{{$product->name}}</div>
         <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
         <div class="product-prices"><del class="product-old-price">${{$product->old_price}}</del><span class="product-price">${{$product->selling_price}}</span><span class="product-discount">-{{$product->discount}}%</span></div>
