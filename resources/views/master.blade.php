@@ -53,9 +53,15 @@
                     <div class="right-side flex text-upper">
                         <a href="{{ url('/seller') }}">Be a seller</a>
                         <span>|</span>
+                         @if(!Auth::check()) 
                         <a href="{{ url('/login') }}">Login</a>
                         <span>|</span>
                         <a href="{{ url('/register') }}">Register</a>
+                        @else
+                        <span>|</span>
+                            <a href="{{ url('/profile') }}"><span>Account</span>
+                            <i class="bi bi-chevron-down small"></i></a>
+                        @endif
                     </div>
 
                 </div>
@@ -89,8 +95,7 @@
                 </form>
 
                 <div class="right-area flex gap-15">
-
-                    <div class="dropdown-holder">
+               <div class="dropdown-holder">
 
                         <button class="header-action"
                                 id="accountBtn"
@@ -102,10 +107,24 @@
                         </button>
 
                         <div class="account-dropdown" id="accountMenu">
+                            @if(!Auth::check()) 
                             <a href="{{ url('/login') }}">Login</a>
                             <a href="{{ url('/register') }}">Register</a>
+                            @else
+                            <a href="{{ url('/profile') }}">
+                              <span>Profile</span></a>
                             <a href="{{ url('/orders') }}">Orders</a>
                             <a href="{{ url('/wishlist') }}">Wish list</a>
+                             <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                            @endif
                         </div>
 
                     </div>
@@ -113,13 +132,13 @@
                     <a href="{{ url('/wishlist') }}" class="header-action">
                         <i class="bi bi-heart"></i>
                         <span>Wishlist</span>
-                    </a>
-
                     <a href="{{ url('/cart') }}" class="header-action cart-btn">
-                        <span class="cart-badge" id="cartCount">0</span>
-                        <i class="bi bi-bag"></i>
-                        <span>Cart</span>
-                    </a>
+    <span class="cart-badge" id="carttotal">
+        {{ Cart::getContent()->sum('quantity') }}
+    </span>
+    <i class="bi bi-bag"></i>
+    <span>Cart</span>
+</a>
 
                 </div>
             </div>
@@ -137,64 +156,26 @@
                 </a>
 
                 <!-- Categories Mega Menu -->
-                <div class="nav-item category-item">
+                <li class="nav-item category-item" id="categoryNav">
 
-                     <li class="nav-item category-item">
-                    <a class="nav-link category-toggle" href="#">
-                        Categories <span>▾</span>
-                    </a>
+    <a href="#" class="nav-link category-toggle">
+        Categories <span>▾</span>
+    </a>
 
-                    <div class="mega-menu">
-                        <div class="row g-4">
+    <!-- Small Vertical Dropdown -->
+    <div class="category-small-dropdown">
 
-                            <!-- Category 1 -->
-                            <div class="col-lg-3 col-md-6">
-                                <h6>Supplements</h6>
-                                <a href="/products?category=shirts">Shirts</a>
-                                <a href="/products?category=t-shirts">T-Shirts</a>
-                                <a href="/products?category=pants">Pants & Jeans</a>
-                                <a href="/products?category=shoes">Shoes</a>
-                                <a href="/products?category=watches">Watches</a>
-                                <a href="/products?category=all-men">View All Products →</a>
-                            </div>
+        <a href="/products?category=shirts">Shirts</a>
+        <a href="/products?category=t-shirts">T-Shirts</a>
+        <a href="/products?category=pants">Pants &amp; Jeans</a>
+        <a href="/products?category=shoes">Shoes</a>
+        <a href="/products?category=watches">Watches</a>
 
-                            <!-- Category 2 -->
-                            <div class="col-lg-3 col-md-6">
-                                <h6>Health Care</h6>
-                                <a href="/products?category=three-piece">Three Piece</a>
-                                <a href="/products?category=saree">Saree</a>
-                                <a href="/products?category=kurti">Kurti</a>
-                                <a href="/products?category=handbag">Handbags</a>
-                                <a href="/products?category=jewellery">Jewellery</a>
-                                <a href="/products?category=all-women">View All Products →</a>
-                            </div>
+       
+        </a>
 
-                            <!-- Category 3 -->
-                            <div class="col-lg-3 col-md-6">
-                                <h6>Beauty</h6>
-                                <a href="/products?category=mobile">Mobile Phones</a>
-                                <a href="/products?category=laptop">Laptops</a>
-                                <a href="/products?category=headphone">Headphones</a>
-                                <a href="/products?category=smartwatch">Smart Watches</a>
-                                <a href="/products?category=accessories">Accessories</a>
-                                <a href="/products?category=all-electronics">View All Products →</a>
-                            </div>
-
-                            <!-- Category 4 -->
-                            <div class="col-lg-3 col-md-6">
-                                <h6>Baby and Mom</h6>
-                                <a href="/products?category=furniture">Furniture</a>
-                                <a href="/products?category=decoration">Home Decoration</a>
-                                <a href="/products?category=lighting">Lighting</a>
-                                <a href="/products?category=kitchen">Kitchen Items</a>
-                                <a href="/products?category=bedding">Bedding</a>
-                                <a href="/products?category=all-home">View All Products →</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-                </div>
+    </div>
+</li>
 
                 <a href="{{ url('/brands') }}">Brands</a>
                 <a href="{{ url('/flash-sale') }}">Flash Sale</a>

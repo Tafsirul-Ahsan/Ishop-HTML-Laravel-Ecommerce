@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Moreimg;
+use App\Models\Order;
+
 use Cart;
+use Auth;
 
 class WelcomeController extends Controller
 {
@@ -175,44 +179,64 @@ if(isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL']!="" ) {
 
 
 public function success(Request $request)
-    {
-        $cartitems=Cart::getContent();
-      $order=new Order();
-      $order->name=$request->name;
-          $order->company=$request->company;
-          $order->city=$request->city;
-          $order->postal_code=$request->postal_code;
-          $order->prefecture=$request->prefecture;
-          $order->address=$request->address;
-          $order->mobile=$request->mobile;
-          $order->email=$request->email;
-          $order->time_slot=$request->time_slot;
-          $order->note=$request->note;
-          $order->cart_items=$cartitems;
-          $order->grandtotal=$request->grandtotal;
-       
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'mobile' => 'required|string|max:30',
+        'email' => 'required|email',
+        'address' => 'required|string|max:1000',
+    ]);
 
-      foreach (\Cart::getContent()  as $item) {
+    $cartItems = Cart::getContent();
 
-        
-        $order->uid=Auth::user()->id;
-        $order->pid=$item->id;
-        $order->quantity=$item->quantity;
-        $order->subtotal=$item->attributes->subtotal;
-        $order->status=0;
-        
-        
-     }
-     //dd($order);
-     $order->save();
-       
-          
-
-        Cart::clear();
-
-        return view('front.cart.cart')->with('success','This info save successfully');
-
+    if ($cartItems->isEmpty()) {
+        return redirect('/cart')
+            ->with('error', 'Your cart is empty.');
     }
+
+    DB::transaction(function () use ($request, $cartItems) {
+
+        foreach ($cartItems as $item) {
+            $order = new Order();
+
+            $order->uid = Auth::id(); // Guest হলে null
+            $order->name = $request->name;
+            $order->company = $request->company;
+            $order->city = $request->city;
+            $order->postal_code = $request->postal_code;
+            $order->prefecture = $request->prefecture;
+            $order->address = $request->address;
+            $order->mobile = $request->mobile;
+            $order->email = $request->email;
+            $order->time_slot = $request->time_slot;
+            $order->note = $request->note;
+
+            $order->pid = $item->id;
+            $order->qty = $item->quantity;
+            $order->subtotal = $item->price * $item->quantity;
+
+            $order->cart_items = json_encode([
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+            ]);
+
+            $order->grandtotal = $cartItems->sum(
+                fn ($cartItem) => $cartItem->price * $cartItem->quantity
+            );
+
+            $order->status = 0;
+
+            $order->save();
+        }
+    });
+
+    Cart::clear();
+
+    return redirect('/cart')
+        ->with('success', 'Your order was placed successfully!');
+}
 
     public function oderplace(Request $request)
     {

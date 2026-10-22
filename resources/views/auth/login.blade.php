@@ -301,29 +301,28 @@
 
     {{-- Email or Phone --}}
     <div class="ishop-input-group">
-        <label for="login" class="form-label" id="loginLabel">
-            Email Address
-        </label>
+    <label for="login" class="form-label" id="loginLabel">
+        Email Address
+    </label>
 
-        <input
-            id="login"
-            type="email"
-            name="login"
-            class="form-control @error('login') is-invalid @enderror"
-            value="{{ old('login') }}"
-            placeholder="Enter your email address"
-            autocomplete="username"
-            required
-            autofocus
-        >
+    <input
+        id="login"
+        type="email"
+        name="login"
+        value="{{ old('login') }}"
+        class="form-control @error('login') is-invalid @enderror"
+        placeholder="Enter your email address"
+        autocomplete="username"
+        required
+        autofocus
+    >
 
-        @error('login')
-            <div class="invalid-feedback" role="alert">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-
+    @error('login')
+        <div class="invalid-feedback" role="alert">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
     {{-- Password --}}
     <div class="ishop-input-group">
         <label for="password" class="form-label">Password</label>
@@ -390,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const isPhone = method === 'phone';
 
         loginLabel.textContent = isPhone ? 'Phone Number' : 'Email Address';
-        loginInput.type = isPhone ? 'tel' : 'email';
+        loginInput.type = isPhone ? 'phone' : 'email';
         loginInput.placeholder = isPhone
             ? 'Enter your registered phone number'
             : 'Enter your email address';

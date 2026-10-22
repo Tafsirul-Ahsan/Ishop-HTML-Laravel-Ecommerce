@@ -159,7 +159,7 @@
                                                 <tr>
                           <th>{{$cartitem->name}}</th>
                           <td style="text-align: end;">
-                            ¥ {{$cartitem->attributes->subtotal}}
+                            $ {{$cartitem->attributes->subtotal}}
                                               </td>
                         </tr>
                                                 <tr>
@@ -184,7 +184,7 @@
       @endphp
        <input type="hidden" name="grandtotal" value="{{$sum}}">
    
-                          <td style="text-align: end;">¥ {{$sum}}</td>
+                          <td style="text-align: end;">$ {{$sum}}</td>
                          
                         </tr>
                         @endforeach

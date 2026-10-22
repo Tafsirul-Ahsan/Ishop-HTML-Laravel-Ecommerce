@@ -206,3 +206,63 @@ document.addEventListener('DOMContentLoaded', function () {
             bubbles: true
         }));
     }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('submit', async function (event) {
+        const form = event.target;
+
+        if (!form.matches('form[action*="/cart/addtocart"]')) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const button = form.querySelector(
+            'button[type="submit"], input[type="submit"]'
+        );
+
+        if (button) {
+            button.disabled = true;
+        }
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || 'Could not add product to cart.'
+                );
+            }
+
+            if (data.success) {
+                // Update cart count without reloading
+                const total = document.getElementById('carttotal');
+
+                if (total) {
+                    total.textContent = data.cart_count;
+                }
+
+                // Success message
+                alert(data.message || 'Product added to cart!');
+            }
+        } catch (error) {
+            console.error('Cart error:', error);
+            alert(error.message || 'Something went wrong.');
+        } finally {
+            if (button) {
+                button.disabled = false;
+            }
+        }
+    });
+});

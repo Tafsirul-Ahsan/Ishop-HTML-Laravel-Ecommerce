@@ -1,4 +1,3 @@
-```blade
 @extends('master')
 
 @section('content')
@@ -451,4 +450,3 @@
 </script>
 
 @endsection
-```

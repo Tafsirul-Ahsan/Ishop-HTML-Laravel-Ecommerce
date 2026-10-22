@@ -18,8 +18,21 @@ use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
+use Illuminate\Support\Facades\Artisan;
 
 
+
+
+
+
+
+
+
+Route::get('/clear-cache', function () {
+    Artisan::call('optimize:clear');
+
+    return 'Laravel cache cleared successfully!';
+});
 
 
 Route::get('/', [WelcomeController::class, 'index']);
@@ -84,7 +97,9 @@ Route::get('profiles/{id}/edit', [ProfileController::class,'edit']);
 Route::put('profiles/{id}', [ProfileController::class, 'update']);
 Route::get('/changePassword', [ProfileController::class, 'showChangePasswordForm']);
 Route::post('/changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
-
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
 
 
 

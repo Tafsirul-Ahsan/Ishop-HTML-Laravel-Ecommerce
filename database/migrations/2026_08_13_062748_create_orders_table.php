@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('uid');
+            $table->integer('uid')->nullable();
             $table->integer('pid');
-            $table->integer('quantity');
+            $table->integer('qty');
             $table->string('subtotal');
             $table->boolean('status');
             $table->string('name');

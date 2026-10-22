@@ -60,7 +60,7 @@
                         <div class="product-image">
                             @if($cartitem->attributes->thum_img ?? false)
                                 <img
-                                    src="{{ asset($cartitem->attributes->thum_img) }}"
+                                    src="{{ asset('images/'.$cartitem->attributes->thum_img) }}"
                                     alt="{{ $cartitem->name }}"
                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Product';">
                             @else
