@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 class PurchaseController extends Controller {
-    public function index(Request $r) { $query=Purchase::with('supplier')->when($r->from,fn($q,$v)=>$q->whereDate('purchase_date','>=',$v))->when($r->to,fn($q,$v)=>$q->whereDate('purchase_date','<=',$v))->latest('purchase_date'); $total=(clone $query)->sum('total'); $purchases=$query->paginate(20)->withQueryString(); return view('finance.purchases.index',compact('purchases','total')); }
-    public function create() { $products=Product::where('is_active',true)->orderBy('name')->get(); $suppliers=Supplier::orderBy('name')->get(); return view('finance.purchases.create',compact('products','suppliers')); }
+    public function index(Request $r) { $query=Purchase::with('supplier')->when($r->from,fn($q,$v)=>$q->whereDate('purchase_date','>=',$v))->when($r->to,fn($q,$v)=>$q->whereDate('purchase_date','<=',$v))->latest('purchase_date'); $total=(clone $query)->sum('total'); $purchases=$query->paginate(20)->withQueryString(); return view('admin.finance.purchases.index',compact('purchases','total')); }
+    public function create() { $products=Product::where('is_active',true)->orderBy('name')->get(); $suppliers=Supplier::orderBy('name')->get(); return view('admin.finance.purchases.create',compact('products','suppliers')); }
     public function store(Request $r) {
         $data=$r->validate(['supplier_id'=>'nullable|exists:finance_suppliers,id','purchase_date'=>'required|date','paid_amount'=>'required|numeric|min:0','payment_method'=>'required|in:cash,bank,mobile_banking,card,other','notes'=>'nullable|string','product_id'=>'required|array|min:1','product_id.*'=>'required|distinct|exists:finance_products,id','quantity'=>'required|array','quantity.*'=>'required|integer|min:1','unit_cost'=>'required|array','unit_cost.*'=>'required|numeric|min:0']);
         return DB::transaction(function() use($data) {

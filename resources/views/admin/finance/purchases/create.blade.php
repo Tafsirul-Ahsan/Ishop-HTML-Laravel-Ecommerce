@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title','New Purchase')
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Record Purchase</h2><p>Manage and review your finance records</p></div></div>
 <form method="POST" action="{{ route('finance.purchases.store') }}" class="card card-soft p-4">@csrf

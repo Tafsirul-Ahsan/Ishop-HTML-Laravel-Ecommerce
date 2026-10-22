@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title',$title)
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>{{ $title }}</h2><p>Manage and review your finance records</p></div><a class="btn btn-primary" href="{{ route('finance.'.$type.'.create') }}">Add {{ rtrim($title,'s') }}</a></div>
 <form class="mb-3"><div class="input-group"><input class="form-control" name="q" value="{{ request('q') }}" placeholder="Search name or phone"><button class="btn btn-outline-secondary">Search</button></div></form>

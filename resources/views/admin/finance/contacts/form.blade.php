@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title',($row->exists?'Edit ':'Add ').rtrim($title,'s'))
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>{{ $row->exists?'Edit ':'Add ' }}{{ rtrim($title,'s') }}</h2><p>Manage and review your finance records</p></div></div>
 <form method="POST" action="{{ $row->exists?route('finance.'.$type.'.update',$row):route('finance.'.$type.'.store') }}" class="card card-soft p-4">@csrf @if($row->exists) @method('PUT') @endif

@@ -220,6 +220,7 @@ public function success(Request $request)
                 'name' => $item->name,
                 'price' => $item->price,
                 'quantity' => $item->quantity,
+                'thum_img' => $item->attributes->thum_img,
             ]);
 
             $order->grandtotal = $cartItems->sum(

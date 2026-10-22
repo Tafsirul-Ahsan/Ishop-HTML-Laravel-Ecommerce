@@ -13,9 +13,9 @@ class SaleController extends Controller {
     public function index(Request $r) {
         $query=Sale::with('customer')->when($r->from,fn($q,$v)=>$q->whereDate('sale_date','>=',$v))->when($r->to,fn($q,$v)=>$q->whereDate('sale_date','<=',$v))->latest('sale_date');
         $total=(clone $query)->sum('total'); $sales=$query->paginate(20)->withQueryString();
-        return view('finance.sales.index',compact('sales','total'));
+        return view('admin.finance.sales.index',compact('sales','total'));
     }
-    public function create() { $products=Product::where('is_active',true)->where('stock','>',0)->orderBy('name')->get(); $customers=Customer::orderBy('name')->get(); return view('finance.sales.create',compact('products','customers')); }
+    public function create() { $products=Product::where('is_active',true)->where('stock','>',0)->orderBy('name')->get(); $customers=Customer::orderBy('name')->get(); return view('admin.finance.sales.create',compact('products','customers')); }
     public function store(Request $r) {
         $data=$r->validate([
             'customer_id'=>'nullable|exists:finance_customers,id','sale_date'=>'required|date',

@@ -15,6 +15,6 @@ class ReportController extends Controller {
         $net=(float)$sales-(float)$cogs-(float)$expenses;
         $salesRows=Sale::with('customer')->whereBetween('sale_date',[$from,$to])->latest('sale_date')->get();
         $expenseRows=Expense::with('category')->whereBetween('expense_date',[$from,$to])->latest('expense_date')->get();
-        return view('finance.reports.index',compact('from','to','sales','received','expenses','cogs','net','salesRows','expenseRows'));
+        return view('admin.finance.reports.index',compact('from','to','sales','received','expenses','cogs','net','salesRows','expenseRows'));
     }
 }

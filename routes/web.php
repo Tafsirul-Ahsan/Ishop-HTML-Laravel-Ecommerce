@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/clear-cache', function () {
     Artisan::call('optimize:clear');
 
-    return 'Laravel cache cleared successfully!';
+    return back();
 });
 
 

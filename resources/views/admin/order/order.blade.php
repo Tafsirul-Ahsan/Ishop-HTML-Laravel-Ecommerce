@@ -302,6 +302,7 @@
 
                                     <td>
                                         @if(!empty($order['attributes']['thum_img']))
+                                        dd($order['attributes']['thum_img']);
                                             <img
                                                 class="order-product-image"
                                                 src="{{ asset('uploads/' . $order['attributes']['thum_img']) }}"

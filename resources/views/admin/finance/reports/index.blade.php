@@ -1,7 +1,6 @@
 @extends('admin.master')
 @section('title','Reports')
 @section('homeContent')
-@include('finance._design')
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Sales & Profit Reports</h2><p>Manage and review your finance records</p></div></div>
 <form class="card card-soft p-3 mb-4"><div class="row g-2 align-items-end"><div class="col-md-4"><label class="form-label">From</label><input class="form-control" type="date" name="from" value="{{ $from }}"></div><div class="col-md-4"><label class="form-label">To</label><input class="form-control" type="date" name="to" value="{{ $to }}"></div><div class="col-md-4"><button class="btn btn-primary">Generate Report</button><button type="button" onclick="window.print()" class="btn btn-outline-secondary">Print</button></div></div></form>

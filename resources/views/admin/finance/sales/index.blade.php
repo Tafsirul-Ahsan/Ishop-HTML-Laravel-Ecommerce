@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title','Sales')
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Sales</h2><p>Manage and review your finance records</p></div><a href="{{ route('finance.sales.create') }}" class="btn btn-primary"><i class="fa fa-plus me-1"></i>New Sale</a></div>
 <form class="card card-soft p-3 mb-3"><div class="row g-2 align-items-end"><div class="col-md-4"><label class="form-label">From</label><input class="form-control" type="date" name="from" value="{{ request('from') }}"></div><div class="col-md-4"><label class="form-label">To</label><input class="form-control" type="date" name="to" value="{{ request('to') }}"></div><div class="col-md-4"><button class="btn btn-outline-primary">Filter</button><a class="btn btn-light" href="{{ route('finance.sales.index') }}">Reset</a></div></div></form>

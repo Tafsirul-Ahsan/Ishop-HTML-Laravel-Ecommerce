@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title','New Sale')
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Create Sale</h2><p>Manage and review your finance records</p></div></div>
 <form method="POST" action="{{ route('finance.sales.store') }}" class="card card-soft p-4" id="saleForm">@csrf

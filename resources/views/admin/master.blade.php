@@ -307,11 +307,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                      
                   </li>
         
-    <li>
-        <a href="{{ route('finance.dashboard') }}" class="{{ request()->routeIs('finance.dashboard') ? 'active' : '' }}">
-            <i class="fa fa-dashboard"></i><span>Dashboard</span>
-        </a>
-    </li>
     <li class="sub-menu">
         <a href="{{ route('finance.sales.index') }}" class="{{ request()->routeIs('finance.sales.*') ? 'active' : '' }}">
             <i class="fa fa-shopping-cart"></i><span>Sales</span>
@@ -350,6 +345,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <li class="sub-menu">
         <a href="{{ route('finance.reports') }}" class="{{ request()->routeIs('finance.reports') ? 'active' : '' }}">
             <i class="fa fa-bar-chart"></i><span>Reports</span>
+        </a>
+    </li>
+     <li class="sub-menu">
+        <a href="{{ url('/clear-cache') }}" class="{{ request()->routeIs('finance.reports') ? 'active' : '' }}">
+            <i class="fa fa-bar-chart"></i><span>Fast Speed</span>
         </a>
     </li>
 </ul>

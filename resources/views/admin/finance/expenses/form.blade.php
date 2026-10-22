@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('title',$expense->exists?'Edit Expense':'Add Expense')
 @section('homeContent')
-@include('finance._design')
+
 <div class="finance-ui">
 
 <div class="finance-page-heading"><div><h2>{{ $expense->exists?'Edit Expense':'Add Expense' }}</h2><p>Manage and review your finance records</p></div></div>
