@@ -2880,3 +2880,466 @@ a {
       .discount { font-size: 11px; }
       .nav-arrow { width: 30px; height: 30px; }
     }
+
+```css
+/* =========================================
+   CHECKOUT PAGE DESIGN
+   Existing Laravel Blade structure preserved
+========================================= */
+
+.main-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 24px 50px;
+    color: #252336;
+    background: #f8f9fc;
+    box-sizing: border-box;
+}
+
+.main-container *,
+.main-container *::before,
+.main-container *::after {
+    box-sizing: border-box;
+}
+
+/* Checkout breadcrumb */
+.checkoutHeader {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 18px 24px;
+    background: #fff;
+    border: 1px solid #e9eaf1;
+    border-radius: 10px;
+}
+
+.checkoutHeader ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.checkoutHeader ul li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #3f0f74;
+}
+
+.checkoutHeader ul li a {
+    color: #3f0f74;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.checkoutHeader ul li i {
+    font-size: 15px;
+    color: #b7bbc7;
+}
+
+/* Main checkout layout */
+.checkoutPage {
+    width: 100%;
+}
+
+.checkoutPage > .container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.checkoutPage .row {
+    align-items: flex-start;
+    row-gap: 24px;
+}
+
+.checkoutPage .col-md-7,
+.checkoutPage .col-md-5 {
+    min-width: 0;
+}
+
+/* Billing form and order summary cards */
+.checkoutForm,
+.checkoutInfo {
+    height: 100%;
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #e8eaf1;
+    border-radius: 12px;
+    box-shadow: 0 5px 22px rgba(28, 25, 48, .045);
+}
+
+.checkoutForm h4,
+.checkoutInfo h4 {
+    margin: 0 0 24px;
+    padding-bottom: 16px;
+    color: #252336;
+    border-bottom: 1px solid #ececf2;
+    font-size: 18px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+.checkoutForm h4:not(:first-child) {
+    margin-top: 28px;
+}
+
+/* Form fields */
+.checkoutForm label {
+    display: block;
+    margin-bottom: 8px;
+    color: #3d3b4c;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.checkoutForm .form-control {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    color: #292638;
+    background: #fff;
+    border: 1px solid #dfe2eb;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: none;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.checkoutForm .form-control::placeholder {
+    color: #a3a6b3;
+    opacity: 1;
+}
+
+.checkoutForm .form-control:focus {
+    border-color: #7440a5;
+    box-shadow: 0 0 0 3px rgba(92, 38, 145, .10);
+}
+
+.checkoutForm select.form-control {
+    cursor: pointer;
+}
+
+.checkoutForm .row.mb-3 {
+    margin-bottom: 20px !important;
+}
+
+.checkoutForm .row > [class*="col-"] {
+    min-width: 0;
+}
+
+/* Country name */
+.checkoutForm h5 {
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 10px 13px;
+    background: #f7f4fb;
+    border: 1px solid #eee5f7;
+    border-radius: 7px;
+    color: #3f0f74 !important;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+/* Delivery information */
+.checkoutForm .selectDateDelivery {
+    margin-bottom: 16px;
+}
+
+.checkoutForm .row > .col-md-12 span {
+    display: block;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    color: #88551a !important;
+    background: #fff8ec;
+    border: 1px solid #f8e7c7;
+    border-radius: 7px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Order notes */
+.checkoutForm textarea {
+    display: block;
+    width: 100%;
+    min-height: 120px;
+    padding: 13px;
+    resize: vertical;
+    color: #292638;
+    background: #fff;
+    border: 1px solid #dfe2eb;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.checkoutForm textarea:focus {
+    border-color: #7440a5;
+    box-shadow: 0 0 0 3px rgba(92, 38, 145, .10);
+}
+
+.checkoutForm textarea::placeholder {
+    color: #a3a6b3;
+}
+
+/* Order summary */
+.checkoutInfo {
+    position: sticky;
+    top: 20px;
+}
+
+.checkoutInfo h4 {
+    margin-bottom: 16px;
+}
+
+.checkoutInfo .ordertable {
+    width: 100%;
+    margin: 0 0 22px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.checkoutInfo .ordertable thead th {
+    padding: 13px 8px;
+    color: #514b61;
+    background: #f6f3fa;
+    border-bottom: 1px solid #e9e3f1;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: .4px;
+}
+
+.checkoutInfo .ordertable tbody th,
+.checkoutInfo .ordertable tbody td {
+    padding: 13px 8px;
+    vertical-align: middle;
+    border-bottom: 1px solid #ececf2;
+    color: #555365;
+    overflow-wrap: anywhere;
+}
+
+.checkoutInfo .ordertable tbody th {
+    font-weight: 500;
+}
+
+.checkoutInfo .ordertable tbody td {
+    font-weight: 600;
+    white-space: normal;
+}
+
+.checkoutInfo .ordertable tbody tr:last-child th,
+.checkoutInfo .ordertable tbody tr:last-child td {
+    color: #3f0f74;
+    font-size: 16px;
+    font-weight: 750;
+    border-bottom: 0;
+}
+
+/* Cash on delivery */
+.cashonDelivery {
+    margin: 20px 0;
+    padding: 16px;
+    background: #f8f5fc;
+    border: 1px solid #e9def5;
+    border-radius: 8px;
+}
+
+.cashonDelivery p {
+    margin: 0 0 6px;
+    color: #3f0f74;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.cashonDelivery span {
+    color: #777486;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Place order button */
+.placeOrderbtn {
+    display: block;
+    width: 100%;
+    min-height: 49px;
+    padding: 13px 18px;
+    color: #fff;
+    background: #3f0f74;
+    border: 1px solid #3f0f74;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+    letter-spacing: .3px;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.placeOrderbtn:hover {
+    color: #fff;
+    background: #2d0956;
+    border-color: #2d0956;
+    transform: translateY(-1px);
+}
+
+.placeOrderbtn:focus-visible {
+    outline: 3px solid rgba(92, 38, 145, .25);
+    outline-offset: 3px;
+}
+
+/* Privacy text */
+.checkoutInfo .policy-text {
+    margin: 16px 0 0;
+    color: #858394;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.checkoutInfo .policy-text a {
+    color: #3f0f74;
+    font-weight: 650;
+    text-decoration: underline;
+}
+
+/* Datepicker compatibility */
+#ui-datepicker-div {
+    z-index: 9999 !important;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #e3deeb;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+    .main-container {
+        padding: 20px 16px 40px;
+    }
+
+    .checkoutForm,
+    .checkoutInfo {
+        padding: 22px;
+    }
+
+    .checkoutInfo {
+        position: static;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .main-container {
+        padding: 14px 10px 30px;
+    }
+
+    .checkoutHeader {
+        margin-bottom: 18px;
+        padding: 14px 10px;
+    }
+
+    .checkoutHeader ul {
+        gap: 10px;
+    }
+
+    .checkoutHeader ul li {
+        gap: 7px;
+    }
+
+    .checkoutHeader ul li a {
+        font-size: 9px;
+        letter-spacing: .2px;
+    }
+
+    .checkoutHeader ul li i {
+        font-size: 12px;
+    }
+
+    .checkoutForm,
+    .checkoutInfo {
+        padding: 18px 14px;
+        border-radius: 9px;
+    }
+
+    .checkoutForm h4,
+    .checkoutInfo h4 {
+        margin-bottom: 18px;
+        padding-bottom: 12px;
+        font-size: 16px;
+    }
+
+    .checkoutForm .row.mb-3 {
+        margin-bottom: 15px !important;
+    }
+
+    .checkoutForm .form-control {
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .checkoutForm .row > [class*="col-"] + [class*="col-"] {
+        margin-top: 14px;
+    }
+
+    .checkoutForm .row > .col-md-12 span {
+        margin-bottom: 15px;
+    }
+
+    .checkoutInfo .ordertable {
+        font-size: 12px;
+    }
+
+    .checkoutInfo .ordertable thead th {
+        padding: 11px 6px;
+        font-size: 10px;
+    }
+
+    .checkoutInfo .ordertable tbody th,
+    .checkoutInfo .ordertable tbody td {
+        padding: 11px 6px;
+    }
+
+    .checkoutInfo .ordertable tbody tr:last-child th,
+    .checkoutInfo .ordertable tbody tr:last-child td {
+        font-size: 14px;
+    }
+
+    .cashonDelivery {
+        padding: 13px;
+    }
+
+    .placeOrderbtn {
+        min-height: 46px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+    .checkoutHeader ul {
+        gap: 6px;
+    }
+
+    .checkoutHeader ul li a {
+        font-size: 8px;
+    }
+
+    .checkoutForm,
+    .checkoutInfo {
+        padding: 15px 11px;
+    }
+}

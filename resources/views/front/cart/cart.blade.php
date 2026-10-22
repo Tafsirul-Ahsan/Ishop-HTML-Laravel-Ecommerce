@@ -208,14 +208,14 @@
                         ৳<span id="total">{{ number_format($grandTotal, 2) }}</span>
                     </strong>
                 </div>
-
+<a href="{{url('/orderplacement')}}">
                 <button type="button"
                         class="checkout-btn"
                         id="checkoutBtn"
                         {{ $cartItems->isEmpty() ? 'disabled' : '' }}>
                     Proceed to Checkout
                 </button>
-
+</a>
                 <div class="saving-box">
                     <span>Items selected</span>
                     <strong>

@@ -174,7 +174,50 @@ if(isset($sslcz['GatewayPageURL']) && $sslcz['GatewayPageURL']!="" ) {
 }
 
 
+public function success(Request $request)
+    {
+        $cartitems=Cart::getContent();
+      $order=new Order();
+      $order->name=$request->name;
+          $order->company=$request->company;
+          $order->city=$request->city;
+          $order->postal_code=$request->postal_code;
+          $order->prefecture=$request->prefecture;
+          $order->address=$request->address;
+          $order->mobile=$request->mobile;
+          $order->email=$request->email;
+          $order->time_slot=$request->time_slot;
+          $order->note=$request->note;
+          $order->cart_items=$cartitems;
+          $order->grandtotal=$request->grandtotal;
+       
 
+      foreach (\Cart::getContent()  as $item) {
+
+        
+        $order->uid=Auth::user()->id;
+        $order->pid=$item->id;
+        $order->quantity=$item->quantity;
+        $order->subtotal=$item->attributes->subtotal;
+        $order->status=0;
+        
+        
+     }
+     //dd($order);
+     $order->save();
+       
+          
+
+        Cart::clear();
+
+        return view('front.cart.cart')->with('success','This info save successfully');
+
+    }
+
+    public function oderplace(Request $request)
+    {
+       return view('front.cart.orderplacement');
+    }
 
 
 public function search(Request $request)

@@ -178,9 +178,9 @@
 
 
     {{-- ================= FEATURED PRODUCTS ================= --}}
-    <section class="product-section">
-  <header class="section-header">
-    <h2>Featured products</h2>
+    <section class="sale-section">
+    <header class="sale-header">
+      <h1 class="sale-heading">Featured products</h1>
     <a href="#featured">Show all</a>
   </header>
   <div class="products-wrapper">
@@ -201,9 +201,9 @@
 </section>
 
 <!-- Trending Products -->
-<section class="product-section">
-  <header class="section-header">
-    <h2>Trending products</h2>
+<section class="sale-section">
+    <header class="sale-header">
+      <h1 class="sale-heading">Trending products</h1>
     <a href="#trending">Show all</a>
   </header>
   <div class="products-wrapper">
@@ -211,11 +211,12 @@
     <div class="products-track">
         @foreach($products as $product)
       <article class="product-card">
+        <a href="{{url('/product-details-'.$product->id)}}">
         <div class=""><img src="images/pro-1.webp" alt="Smart watch"></div>
         <div class="product-title">{{$product->name}}</div>
         <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
         <div class="product-prices"><del class="product-old-price">${{$product->old_price}}</del><span class="product-price">${{$product->selling_price}}</span><span class="product-discount">-{{$product->discount}}%</span></div>
-      </article>
+    </a>  </article>
       @endforeach
     </div>
     <button class="product-arrow product-next" type="button" aria-label="Next trending products"><i class="bi bi-chevron-right"></i></button>

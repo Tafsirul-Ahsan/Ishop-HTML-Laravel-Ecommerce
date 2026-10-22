@@ -57,9 +57,9 @@ Route::post('/cart/addtocart', [WelcomeController::class, 'addcart']);
 Route::get('cart/remove-item/{id}', [WelcomeController::class, 'removecart']);
 
 //order-placement
-Route::get('/orderplacement', [ProfileController::class, 'oderplace']);
-Route::post('/orderplacement', [ProfileController::class, 'oderplace']);
-Route::post('/orderplacement/success', [ProfileController::class, 'success']);
+Route::get('/orderplacement', [WelcomeController::class, 'oderplace']);
+Route::post('/orderplacement', [WelcomeController::class, 'oderplace']);
+Route::post('/orderplacement/success', [WelcomeController::class, 'success']);
 
 //orders
 Route::get('/admin/orders', [OrderController::class, 'index']);

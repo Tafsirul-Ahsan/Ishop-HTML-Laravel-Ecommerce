@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('homeContent')
+@section('content')
     
 <div class="main-container">
         
