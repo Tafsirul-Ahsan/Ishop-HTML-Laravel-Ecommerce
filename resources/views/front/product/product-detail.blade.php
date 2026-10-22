@@ -115,21 +115,21 @@
     <span class="small">Quantity</span>
 
     <div class="quantity-control">
-        <button type="button" onclick="changeQuantity(-1)">-</button>
+    <button type="button" onclick="changeQuantity(-1)">−</button>
 
-        <input
-            type="number"
-            id="quantity"
-            name="qty"
-            value="1"
-            min="1"
-            max="{{ min(50, (int) ($product->stock ?? 0)) }}"
-            readonly
-            style="width: 50px; text-align: center; border: none; background: transparent;"
-        >
+    <input
+        type="number"
+        id="quantity"
+        name="qty"
+        value="1"
+        min="1"
+        max="{{ min(50, (int) ($product->stock ?? 0)) }}"
+        readonly
+        style="width: 50px; text-align: center; border: none; background: transparent;"
+    >
 
-        <button type="button" onclick="changeQuantity(1)">+</button>
-    </div>
+    <button type="button" onclick="changeQuantity(1)">+</button>
+</div>
 </div>
 
 <input type="hidden" name="pid" value="{{ $product->id }}">

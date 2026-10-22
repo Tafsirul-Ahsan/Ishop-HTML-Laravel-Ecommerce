@@ -128,93 +128,32 @@
     {{-- ================= FLASH SALE ================= --}}
    
 
-<section class="area home-section flash-sale-section" id="flash-sale">
+ <section class="sale-section">
+    <header class="sale-header">
+      <h1 class="sale-heading">
+        <span>New Year Sale</span>
+        <span class="countdown" id="countdown">60:21:45:07</span>
+      </h1>
+      <a class="show-all" href="#">Show all</a>
+    </header>
 
-    <div class="flex sided title">
-        <div class="flash-heading">
-            <h4>Flash Sale</h4>
-
-            <div class="flash-timer">
-                <span class="timer-label">Ends in</span>
-                <span class="timer-box" id="saleHours">23</span>
-                <span class="timer-colon">:</span>
-                <span class="timer-box" id="saleMinutes">59</span>
-                <span class="timer-colon">:</span>
-                <span class="timer-box" id="saleSeconds">59</span>
-            </div>
-        </div>
-
-        <a class="link" href="{{ url('/flash-sale') }}">
-            Show all <i class="bi bi-arrow-right"></i>
-        </a>
+    <div class="products-wrap">
+      <button class="product-arrow product-prev" type="button" aria-label="Previous featured products"><i class="bi bi-chevron-left"></i></button>
+      <div class="product-track" id="productTrack">
+        @foreach($products as $product)
+        <article class="product-card">
+            <a href="{{url('/product-details-'.$product->id)}}">
+          <div class="product-visual">
+            <span class="tag">{{$product->type}}</span>
+            <img src="{{asset('images/pro-2.webp')}}" alt="Packaged almonds">
+          </div>
+          <div class="product-meta"><div class="price-line"><span class="price">${{$product->selling_price}}</span><span class="old-price">$130</span></div><span class="discount">42% off</span></div></a>
+        </article>
+        @endforeach
+      </div>
+       <button class="product-arrow product-next" type="button" aria-label="Next featured products"><i class="bi bi-chevron-right"></i></button>
     </div>
-
-    <div class="flash-sale-wrapper">
-
-        <button class="sale-nav sale-prev" type="button"
-                aria-label="Previous products">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-
-        <div class="sale-products" id="flashSaleProducts">
-
-            @foreach ($products as $product)
-                <article class="sale-product">
-
-                    <a href="{{ route('product.details', ['id' => $product->id]) }}"
-                       class="sale-product-link">
-
-                        <div class="sale-product-image">
-
-                            @if (!empty($product->tag))
-                                <span class="sale-badge">
-                                    {{ $product->tag }}
-                                </span>
-                            @endif
-
-                            @if(isset($product) && $product->thum_img)
-    <img
-        src="{{ asset('images/pro-1.webp') }}"
-        width="150"
-        alt="Product image"
-    >
-@endif
-
-                        </div>
-
-                        
-<div class="sale-product-info">
-    <h4 class="price-wrapper">
-        <span class="price">
-            ${{ number_format($product->selling_price, 2) }}
-        </span>
-
-        <span class="strike-through">
-            ${{ number_format($product->old, 2) }}
-        </span>
-    </h4>
-
-    <h5 class="color-primary">
-        <span class="discount">
-            {{ $product->discount }}% OFF
-        </span>
-    </h5>
-</div>
-
-
-                    </a>
-                </article>
-            @endforeach
-
-        </div>
-
-        <button class="sale-nav sale-next" type="button"
-                aria-label="Next products">
-            <i class="bi bi-chevron-right"></i>
-        </button>
-
-    </div>
-</section>
+  </section>
 
     {{-- ================= PROMOTIONAL BANNERS ================= --}}
     <section class="product-banner">
@@ -247,62 +186,15 @@
   <div class="products-wrapper">
     <button class="product-arrow product-prev" type="button" aria-label="Previous featured products"><i class="bi bi-chevron-left"></i></button>
     <div class="products-track">
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Waffle knit blouse"></div>
-        <div class="product-title">Women's Waffle Knit Blouse Balloon Long Sleeve Lace Detail</div>
+         @foreach($products as $product)
+      <article class="product-card mt-0">
+        <a href="{{url('/product-details-'.$product->id)}}">
+        <div class=""><img src="images/pro-1.webp" alt="Waffle knit blouse"></div>
+        <div class="product-title">{{$product->name}}</div>
         <div class="product-rating"><span class="product-stars">★★★★★</span><span>2 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$79</span><span class="product-discount">-21%</span></div>
+        <div class="product-prices"><del class="product-old-price">${{$product->old_price}}</del><span class="product-price">${{$product->selling_price}}</span><span class="product-discount">-{{$product->discount}}%</span></div></a>
       </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-2.webp" alt="Rabbit plush toy"></div>
-        <div class="product-title">Magic | Skin-renewing Microdermabrasion Scrub</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$99</span><span class="product-discount">-1%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">New</span>
-        <div class="product-image"><img src="images/pro-3.webp" alt="Makeup palette"></div>
-        <div class="product-title">BTFBM Women Casual Fall Dresses V Neck Tie Neck</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$85</span><span class="product-discount">-15%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Packaged almonds"></div>
-        <div class="product-title">Women's Casual Long Sleeve Lapel Zipper Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$130</del><span class="product-price">$76</span><span class="product-discount">-42%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Packaged almonds"></div>
-        <div class="product-title">Women's Casual Long Sleeve Lapel Zipper Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$130</del><span class="product-price">$76</span><span class="product-discount">-42%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Packaged almonds"></div>
-        <div class="product-title">Women's Casual Long Sleeve Lapel Zipper Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$130</del><span class="product-price">$76</span><span class="product-discount">-42%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Packaged almonds"></div>
-        <div class="product-title">Women's Casual Long Sleeve Lapel Zipper Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>5 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$130</del><span class="product-price">$76</span><span class="product-discount">-42%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-2.webp" alt="Handheld game console"></div>
-        <div class="product-title">Self Retractable ID Badge Holder Key Reel, Heavy Duty</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>2 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$200</del><span class="product-price">$105</span><span class="product-discount">-48%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">New</span>
-        <div class="product-image"><img src="images/pro-3.webp" alt="Water bottle"></div>
-        <div class="product-title">Nutrafol Women Hair Growth For Thicker Hair</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>2 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$91</span><span class="product-discount">-9%</span></div>
-      </article>
+      @endforeach
     </div>
     <button class="product-arrow product-next" type="button" aria-label="Next featured products"><i class="bi bi-chevron-right"></i></button>
   </div>
@@ -317,74 +209,14 @@
   <div class="products-wrapper">
     <button class="product-arrow product-prev" type="button" aria-label="Previous trending products"><i class="bi bi-chevron-left"></i></button>
     <div class="products-track">
+        @foreach($products as $product)
       <article class="product-card">
-        <div class="product-image"><img src="images/pro-1.webp" alt="Smart watch"></div>
-        <div class="product-title">Nautica Diver Nylon Small Womens Crossbody Bag</div>
+        <div class=""><img src="images/pro-1.webp" alt="Smart watch"></div>
+        <div class="product-title">{{$product->name}}</div>
         <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$150</del><span class="product-price">$103</span><span class="product-discount">-32%</span></div>
+        <div class="product-prices"><del class="product-old-price">${{$product->old_price}}</del><span class="product-price">${{$product->selling_price}}</span><span class="product-discount">-{{$product->discount}}%</span></div>
       </article>
-      <article class="product-card">
-        <span class="product-badge">Trending</span>
-        <div class="product-image"><img src="images/pro-2.webp" alt="Leggings"></div>
-        <div class="product-title">4 Pack Leggings with Pockets for Women, High Waist</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$89</span><span class="product-discount">-11%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">Featured</span>
-        <div class="product-image"><img src="images/pro-3.webp" alt="Black shoes"></div>
-        <div class="product-title">Women's Ruffle Sleeve Tops Summer Casual Blouse</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$80</span><span class="product-discount">-20%</span></div>
-      </article>
-       <article class="product-card">
-        <span class="product-badge">Trending</span>
-        <div class="product-image"><img src="images/pro-2.webp" alt="Leggings"></div>
-        <div class="product-title">4 Pack Leggings with Pockets for Women, High Waist</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$89</span><span class="product-discount">-11%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">Featured</span>
-        <div class="product-image"><img src="images/pro-3.webp" alt="Black shoes"></div>
-        <div class="product-title">Women's Ruffle Sleeve Tops Summer Casual Blouse</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$80</span><span class="product-discount">-20%</span></div>
-      </article>
-       <article class="product-card">
-        <span class="product-badge">Trending</span>
-        <div class="product-image"><img src="images/pro-2.webp" alt="Leggings"></div>
-        <div class="product-title">4 Pack Leggings with Pockets for Women, High Waist</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$89</span><span class="product-discount">-11%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">Featured</span>
-        <div class="product-image"><img src="images/pro-3.webp" alt="Black shoes"></div>
-        <div class="product-title">Women's Ruffle Sleeve Tops Summer Casual Blouse</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>1 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$80</span><span class="product-discount">-20%</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">New</span>
-        <div class="product-image"><img src="images/pro-2.webp" alt="Skin care"></div>
-        <div class="product-title">Daily Hydrating Duo Skin Care Starter Kit</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>4 Reviews</span></div>
-        <div class="product-prices"><span class="product-price">$100</span></div>
-      </article>
-      <article class="product-card">
-        <span class="product-badge">New</span>
-        <div class="product-image"><img src="images/pro-1.webp" alt="Red fruit"></div>
-        <div class="product-title">LYANER Women's Tunic Round Neck Ruffle Loose Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>4 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$86</span><span class="product-discount">-14%</span></div>
-      </article>
-      <article class="product-card">
-        <div class="product-image"><img src="images/pro-3.webp" alt="Casual shirt"></div>
-        <div class="product-title">Tops Knit Shirts Casual Ruffle Short Sleeve Top</div>
-        <div class="product-rating"><span class="product-stars">★★★★★</span><span>4 Reviews</span></div>
-        <div class="product-prices"><del class="product-old-price">$100</del><span class="product-price">$77</span><span class="product-discount">-23%</span></div>
-      </article>
+      @endforeach
     </div>
     <button class="product-arrow product-next" type="button" aria-label="Next trending products"><i class="bi bi-chevron-right"></i></button>
   </div>

@@ -148,3 +148,61 @@ document.querySelectorAll('.product-section .products-wrapper').forEach(function
 });
 
  
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('.sale-section');
+
+    sections.forEach(function (section) {
+        const track = section.querySelector('#productTrack');
+        const prev = section.querySelector('.product-prev');
+        const next = section.querySelector('.product-next');
+
+        if (!track || !prev || !next) return;
+
+        function getScrollAmount() {
+            const card = track.querySelector('.product-card');
+
+            if (!card) return track.clientWidth;
+
+            const styles = window.getComputedStyle(track);
+            const gap = parseFloat(styles.gap) || 0;
+
+            return (card.getBoundingClientRect().width + gap) * 3;
+        }
+
+        next.addEventListener('click', function () {
+            track.scrollBy({
+                left: getScrollAmount(),
+                behavior: 'smooth'
+            });
+        });
+
+        prev.addEventListener('click', function () {
+            track.scrollBy({
+                left: -getScrollAmount(),
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+
+    function changeQuantity(change) {
+        const quantityInput = document.getElementById('quantity');
+
+        if (!quantityInput) return;
+
+        const min = parseInt(quantityInput.min) || 1;
+        const max = parseInt(quantityInput.max) || 50;
+        let quantity = parseInt(quantityInput.value) || min;
+
+        quantity += change;
+
+        if (quantity < min) quantity = min;
+        if (quantity > max) quantity = max;
+
+        quantityInput.value = quantity;
+
+        // অন্য কোনো কোড quantity change event ব্যবহার করলে
+        quantityInput.dispatchEvent(new Event('change', {
+            bubbles: true
+        }));
+    }
