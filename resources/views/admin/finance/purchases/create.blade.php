@@ -5,6 +5,22 @@
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Record Purchase</h2><p>Manage and review your finance records</p></div></div>
 <form method="POST" action="{{ route('finance.purchases.store') }}" class="card card-soft p-4">@csrf
+@if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Please check the following:</strong>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="row g-3 mb-4"><div class="col-md-4"><label class="form-label">Supplier</label><select class="form-select" name="supplier_id"><option value="">Select supplier</option>@foreach($suppliers as $s)<option value="{{ $s->id }}">{{ $s->name }}</option>@endforeach</select></div><div class="col-md-4"><label class="form-label">Purchase date *</label><input class="form-control" type="date" name="purchase_date" required value="{{ today()->toDateString() }}"></div><div class="col-md-4"><label class="form-label">Payment method</label><select class="form-select" name="payment_method">@foreach(['cash','bank','mobile_banking','card','other'] as $m)<option value="{{ $m }}">{{ ucfirst(str_replace('_',' ',$m)) }}</option>@endforeach</select></div></div>
 <div class="d-flex justify-content-between mb-2"><h5 class="fw-bold">Items</h5><button class="btn btn-sm btn-outline-primary" type="button" id="addRow">+ Add Item</button></div>
 <div class="table-responsive"><table class="table" id="items"><thead><tr><th>Product</th><th>Quantity</th><th>Unit cost</th><th>Total</th><th></th></tr></thead><tbody></tbody></table></div>

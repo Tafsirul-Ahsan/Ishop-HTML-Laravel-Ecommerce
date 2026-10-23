@@ -235,16 +235,32 @@ a {
     font-weight: 700;
 }
 
-.top-selling-section .product-grid {
+/* Top Selling: Show 2 products side by side */
+.top-selling-section .top-selling-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px;
     width: 100%;
-    margin: 0;
-    padding: 14px;
-    --bs-gutter-x: 14px;
-    --bs-gutter-y: 14px;
 }
 
-.top-selling-section .product-column {
+/* Remove wrapper layout so each product becomes a grid item */
+.top-selling-section .selling-column {
+    display: contents !important;
+}
+
+/* Keep existing product design */
+.top-selling-section .selling-product {
+    width: 100%;
     min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Mobile: still show 2 products side by side */
+@media (max-width: 480px) {
+    .top-selling-section .top-selling-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px;
+    }
 }
 
 .top-selling-section .search-product-card {

@@ -5,6 +5,22 @@
 <div class="finance-ui">
 <div class="finance-page-heading"><div><h2>Create Sale</h2><p>Manage and review your finance records</p></div></div>
 <form method="POST" action="{{ route('finance.sales.store') }}" class="card card-soft p-4" id="saleForm">@csrf
+@if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Please check the following:</strong>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="row g-3 mb-4"><div class="col-md-4"><label class="form-label">Customer</label><select class="form-select" name="customer_id"><option value="">Walk-in customer</option>@foreach($customers as $c)<option value="{{ $c->id }}">{{ $c->name }} {{ $c->phone ? '— '.$c->phone : '' }}</option>@endforeach</select></div><div class="col-md-4"><label class="form-label">Sale date *</label><input class="form-control" type="date" name="sale_date" required value="{{ old('sale_date',today()->toDateString()) }}"></div><div class="col-md-4"><label class="form-label">Payment method</label><select class="form-select" name="payment_method">@foreach(['cash','bank','mobile_banking','card','other'] as $m)<option value="{{ $m }}">{{ ucfirst(str_replace('_',' ',$m)) }}</option>@endforeach</select></div></div>
 <div class="d-flex justify-content-between align-items-center mb-2"><h5 class="fw-bold">Items</h5><button type="button" class="btn btn-sm btn-outline-primary" id="addRow">+ Add Item</button></div>
 <div class="table-responsive"><table class="table" id="itemsTable"><thead><tr><th>Product</th><th style="width:120px">Quantity</th><th style="width:160px">Unit price</th><th>Line total</th><th></th></tr></thead><tbody></tbody></table></div>

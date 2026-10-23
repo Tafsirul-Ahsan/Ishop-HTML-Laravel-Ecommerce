@@ -10,11 +10,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}" >
 <!-- //bootstrap-css -->
+<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-1/assets/css/chart-1.css">
 <!-- Custom CSS -->
 <link href="{{asset('admin/css/style.css')}}" rel='stylesheet' type='text/css' />
 <link href="{{asset('admin/css/style-responsive.css')}}" rel="stylesheet"/>
 <!-- font CSS -->
-<link href='{{asset('admin///fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic')}}' rel='stylesheet' type='text/css'>
+<link href="{{asset('admin///fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic')}}" rel='stylesheet' type='text/css'>
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="{{asset('admin/css/font.css')}}" type="text/css"/>
 <link href="css/font-awesome.css" rel="stylesheet"> 
@@ -286,7 +287,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                        <i class="fa fa-th"></i>
                         <span>Product Upload</span>
                     </a>
-                   
+                   <a href="{{ route('admin.categories.create') }}" class="btn btn-success">
+                        <i class="fa fa-plus"></i> Add Category
+                    </a>
                 </li>
                  
                 <li class="sub-menu">
@@ -320,6 +323,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <li class="sub-menu">
         <a href="{{ route('finance.products.index') }}" class="{{ request()->routeIs('finance.products.*') ? 'active' : '' }}">
             <i class="fa fa-cube"></i><span>Products &amp; Stock</span>
+        </a>
+    </li>
+    <li class="sub-menu">
+        <a href="{{ route('admin.categories.index') }}" class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+            <i class="fa fa-tags"></i><span>Product Categories</span>
         </a>
     </li>
     <li class="sub-menu">
@@ -447,6 +455,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://unpkg.com/bs-brain@2.0.4/components/charts/chart-1/assets/controller/chart-1.js"></script>
 <script src="{{asset('admin/js/bootstrap.js')}}"></script>
 <script src="{{asset('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('admin/js/scripts.js')}}"></script>
@@ -542,5 +552,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     </script>
     <!-- //calendar -->
+    @stack('scripts')
 </body>
 </html>

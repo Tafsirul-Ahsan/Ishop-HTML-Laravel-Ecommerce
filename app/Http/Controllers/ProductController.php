@@ -77,6 +77,11 @@ class ProductController extends Controller
                 'numeric',
                 'min:0',
             ],
+             'old_price' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
 
             'stock' => [
                 'required',
@@ -172,7 +177,7 @@ class ProductController extends Controller
         Product::create($data);
 
         return redirect()
-            ->route('admin.finance.products.index')
+            ->route('finance.products.index')
             ->with('success', 'Product created successfully.');
     }
 
@@ -326,7 +331,7 @@ class ProductController extends Controller
         $product->update($data);
 
         return redirect()
-            ->route('admin.finance.products.index')
+            ->route('finance.products.index')
             ->with('success', 'Product updated successfully.');
     }
 
@@ -359,7 +364,7 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()
-            ->route('admin.finance.products.index')
+            ->route('finance.products.index')
             ->with('success', 'Product deleted successfully.');
     }
 }

@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Finance\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Finance\CustomerController;
 use App\Http\Controllers\Finance\SupplierController;
 use App\Http\Controllers\Finance\ExpenseCategoryController;
@@ -13,144 +17,208 @@ use App\Http\Controllers\Finance\PurchaseController;
 use App\Http\Controllers\Finance\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SendEmailController;
-use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Auth\AdminLoginController;
 
+/*
+|--------------------------------------------------------------------------
+| PUBLIC ROUTES
+|--------------------------------------------------------------------------
+| Routes available without login.
+*/
 
+Route::get('/', [WelcomeController::class, 'index'])
+    ->name('welcome');
 
+Route::get('/product-details-{id}', [
+    WelcomeController::class, 'details'
+])->name('product.details');
 
+Route::get('/about', [WelcomeController::class, 'about']);
 
-
-
-
-
-Route::get('/clear-cache', function () {
-    Artisan::call('optimize:clear');
-
-    return back();
-});
-
-
-Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/product-details-{id}', [WelcomeController::class, 'details'])
-    ->name('product.details');
-Route::get('/about',[WelcomeController::class, 'about']);
-
-// Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-//search
-Route::post('/search',[WelcomeController::class, 'search']);
-
-//admin
-
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/login',[AdminLoginController::class, 'showLoginForm']);
-Route::post('/admin/login',[AdminLoginController::class, 'login']);
-
-//product
-
-Route::resource('admin/products', ProductController::class);
-
-//shopitem
 Route::get('/shopitem', [WelcomeController::class, 'buymore']);
 
+Route::post('/search', [
+    WelcomeController::class, 'search'
+])->middleware('throttle:30,1')->name('search');
+
 Route::get('/lang/home', [LangController::class, 'index']);
- 
-Route::get('/lang/change', [LangController::class, 'change'])->name('changeLang');
+Route::get('/lang/change', [LangController::class, 'change'])
+    ->name('changeLang');
 
-//cart
-Route::get('/cart', [WelcomeController::class, 'cart']);
-Route::get('/cart/addtocart', [WelcomeController::class, 'addcart']);
-Route::post('/cart/addtocart', [WelcomeController::class, 'addcart']);
-Route::get('cart/remove-item/{id}', [WelcomeController::class, 'removecart']);
+// Cart: modifications must use POST/DELETE, not GET.
+Route::get('/cart', [WelcomeController::class, 'cart'])
+    ->name('cart.index');
 
-//order-placement
-Route::get('/orderplacement', [WelcomeController::class, 'oderplace']);
-Route::post('/orderplacement', [WelcomeController::class, 'oderplace']);
-Route::post('/orderplacement/success', [WelcomeController::class, 'success']);
+Route::post('/cart/addtocart', [
+    WelcomeController::class, 'addcart'
+])->middleware('throttle:30,1')->name('cart.add');
 
-//orders
-Route::get('/admin/orders', [OrderController::class, 'index']);
-Route::get('/admin/orders/{id}', [OrderController::class, 'confirm']);
+Route::delete('/cart/remove-item/{id}', [
+    WelcomeController::class, 'removecart'
+])->whereNumber('id')->name('cart.remove');
 
-//payment
-Route::post('/payment', [WelcomeController::class, 'payment']);
-Route::post('/payment/success', [ProfileController::class, 'success']);
+// Checkout and payment
+Route::get('/orderplacement', [
+    WelcomeController::class, 'oderplace'
+])->name('orderplacement');
 
+Route::post('/orderplacement', [
+    WelcomeController::class, 'oderplace'
+])->middleware('throttle:10,1')
+  ->name('orderplacement.store');
 
-//mail
+Route::post('/orderplacement/success', [
+    WelcomeController::class, 'success'
+])->name('orderplacement.success');
 
-/*Route::get('/sendemail', [SendEmailController::class, 'index']);
-Route::post('/sendemail/send', [SendEmailController::class, 'send']);*/
+Route::post('/payment', [
+    WelcomeController::class, 'payment'
+])->middleware('throttle:10,1')->name('payment');
 
-//profles
-Route::get('profiles', [ProfileController::class, 'index']);
-Route::get('profiles/create', [ProfileController::class, 'create']);
-Route::post('profiles', [ProfileController::class, 'store']);
-Route::get('profiles/{id}', [ProfileController::class, 'show']);
-Route::get('profiles/{id}/edit', [ProfileController::class,'edit']);
-Route::put('profiles/{id}', [ProfileController::class, 'update']);
-Route::get('/changePassword', [ProfileController::class, 'showChangePasswordForm']);
-Route::post('/changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
-Route::post('/logout', [LoginController::class, 'logout'])
-    ->name('logout')
-    ->middleware('auth');
+Route::post('/payment/success', [
+    ProfileController::class, 'success'
+])->name('payment.success');
 
 
-
-
-
-
-
-
-// Route::get('mail',function(){
-
-//  return view('front.cart.cart');
-// });
-
-// Route::post('mail',function(){
-
-//  Mail::to('tafsirul15-8661@diu.edu.bd')->send(new DemoMail());
-
-
-// });
-//Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+|--------------------------------------------------------------------------
+| CUSTOMER AUTHENTICATION
+|--------------------------------------------------------------------------
+*/
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Avoid duplicate /home route definitions.
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware('auth')->name('home');
 
-// Admin Login
-Route::get('/admin/login', [
-    AdminLoginController::class,
-    'showLoginForm'
-])->name('admin.login');
 
-Route::post('/admin/login', [
-    AdminLoginController::class,
-    'login'
-])->name('admin.login.submit');
+/*
+|--------------------------------------------------------------------------
+| ADMIN LOGIN
+|--------------------------------------------------------------------------
+| Separate admin guard and rate-limited login attempts.
+*/
+
+Route::middleware('guest:admin')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/login', [
+            AdminLoginController::class, 'showLoginForm'
+        ])->name('login');
+
+        Route::post('/login', [
+            AdminLoginController::class, 'login'
+        ])->middleware('throttle:5,1')
+          ->name('login.submit');
+    });
 
 Route::post('/admin/logout', [
-    AdminLoginController::class,
-    'logout'
+    AdminLoginController::class, 'logout'
 ])->middleware('auth:admin')->name('admin.logout');
 
-// Protected Finance Routes
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ADMIN ROUTES
+|--------------------------------------------------------------------------
+| Every route in this group requires an authenticated admin.
+*/
+
+Route::middleware('auth:admin')
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+Route::resource('categories', CategoryController::class);
+        Route::get('/dashboard', [
+            AdminController::class, 'index'
+        ])->name('dashboard');
+
+        // Legacy product URLs, if existing views still use them.
+        Route::resource('products', ProductController::class)
+            ->except(['show']);
+
+        Route::get('/orders', [
+            OrderController::class, 'index'
+        ])->name('orders.index');
+
+        // Use POST only if confirm() performs an order-state change.
+        Route::post('/orders/{id}/confirm', [
+            OrderController::class, 'confirm'
+        ])->whereNumber('id')->name('orders.confirm');
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED CUSTOMER PROFILE ROUTES
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profiles', [
+        ProfileController::class, 'index'
+    ])->name('profiles.index');
+
+    Route::get('/profiles/create', [
+        ProfileController::class, 'create'
+    ])->name('profiles.create');
+
+    Route::post('/profiles', [
+        ProfileController::class, 'store'
+    ])->name('profiles.store');
+
+    Route::get('/profiles/{id}', [
+        ProfileController::class, 'show'
+    ])->whereNumber('id')->name('profiles.show');
+
+    Route::get('/profiles/{id}/edit', [
+        ProfileController::class, 'edit'
+    ])->whereNumber('id')->name('profiles.edit');
+
+    Route::put('/profiles/{id}', [
+        ProfileController::class, 'update'
+    ])->whereNumber('id')->name('profiles.update');
+
+    Route::get('/changePassword', [
+        ProfileController::class, 'showChangePasswordForm'
+    ])->name('password.change');
+
+    Route::post('/changePassword', [
+        ProfileController::class, 'changePassword'
+    ])->middleware('throttle:5,1')
+      ->name('password.update');
+
+    Route::post('/logout', function (Request $request) {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    })->name('logout');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED FINANCE MODULE
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware('auth:admin')
     ->prefix('admin/finance')
     ->name('finance.')
     ->group(function () {
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
+        Route::get('/dashboard', [
+            DashboardController::class, 'index'
+        ])->name('dashboard');
 
         Route::resource('products', ProductController::class)
             ->except(['show']);
@@ -173,6 +241,7 @@ Route::middleware('auth:admin')
         Route::resource('purchases', PurchaseController::class)
             ->only(['index', 'create', 'store', 'show', 'destroy']);
 
-        Route::get('/reports', [ReportController::class, 'index'])
-            ->name('reports');
+        Route::get('/reports', [
+            ReportController::class, 'index'
+        ])->name('reports');
     });

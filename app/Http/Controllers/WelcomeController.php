@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Moreimg;
 use App\Models\Order;
 
@@ -23,7 +24,8 @@ class WelcomeController extends Controller
           
           $products=Product::orderby('id','asc')->get();
           $items=Product::orderby('id','asc')->get();
-    return view('welcome',compact('products','items'));
+          $categories=Category::where('is_active', true)->orderBy('name')->get();
+    return view('welcome',compact('products','items','categories'));
     }
     public function about(){
           

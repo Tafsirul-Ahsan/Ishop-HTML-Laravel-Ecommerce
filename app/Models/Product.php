@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Finance\SaleItem;
+use App\Models\Finance\PurchaseItem;
 
 class Product extends Model
 {
@@ -17,6 +20,7 @@ class Product extends Model
         'sku',
         'category',
         'purchase_price',
+        'old_price',
         'selling_price',
         'stock',
         'low_stock_at',
@@ -24,6 +28,7 @@ class Product extends Model
 
         // Existing website product fields
         'type',
+        'qty',
         'short_des',
         'tags',
         'thum_img',

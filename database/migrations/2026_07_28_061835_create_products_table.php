@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('category')->nullable();
             $table->decimal('purchase_price', 12, 2)->default(0);
+            $table->decimal('old_price', 12, 2)->default(0);
             $table->decimal('selling_price', 12, 2)->default(0);
             $table->unsignedInteger('stock')->default(0);
             $table->unsignedInteger('low_stock_at')->default(5);
